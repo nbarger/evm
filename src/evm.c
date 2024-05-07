@@ -18,6 +18,8 @@ EVMInstance* evmNew()
 	e->dataStack = malloc(DATA_STACK_MAX);
 	e->returnStack = malloc(RETURN_STACK_MAX);
 
+	e->instr = 0;
+
 	e->running = 0;
 
 	return e;
@@ -48,12 +50,28 @@ void evmExecuteInstr(EVMInstance* e, uint8_t instr)
 
 void evmCycle(EVMInstance* e)
 {
-	uint8_t instr;
-
 	// fetch instruction
-	instr = e->codeMem[e->pc];
+	e->instr = e->codeMem[e->pc];
 	// execute
-	evmExecuteInstr(e, instr);
+	evmExecuteInstr(e, e->instr);
+}
+
+void evmMonitor(EVMInstance* e)
+{
+	size_t i;
+
+	// pointer regs
+	printf("PC               DSP              RSP\n");
+	printf("%016d %016d %016d\n", (int)e->pc, (int)e->dsp, (int)e->rsp);
+	printf("Flags\n");
+	printf("%08x\n", e->flags);
+	printf("r1       r2       r3       r4\n");
+	for (i=0; i<4; i++)
+		printf("%08x ", e->registers[i]);
+	printf("\nr5       r6       lo       hi\n");
+	for (i=4; i<8; i++)
+		printf("%08x ", e->registers[i]);
+	printf("Current instruction: %08x", e->instr);
 }
 
 void evmLoadCode(EVMInstance* e, size_t start, uint8_t* code, size_t codeSize)

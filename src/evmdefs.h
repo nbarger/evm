@@ -18,6 +18,8 @@ typedef struct
 	uint8_t* dataStack;
 	uint8_t* returnStack;
 
+	uint8_t instr;
+
 	int running;
 }EVMInstance;
 

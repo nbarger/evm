@@ -3,12 +3,14 @@
 
 #include "evmdefs.h"
 
-#define NUM_INSTR 1
+#define NUM_INSTR 3
 
 void opHalt(EVMInstance* e);
+void opNop(EVMInstance* e);
+void opLoadImmediate(EVMInstance* e);
 
 typedef void (*OpTable)(EVMInstance*);
 
-OpTable opTable[NUM_INSTR];
+extern OpTable opTable[NUM_INSTR];
 
 #endif
