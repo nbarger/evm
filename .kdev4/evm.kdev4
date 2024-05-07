@@ -1,0 +1,52 @@
+[Launch]
+Launch Configurations=Launch Configuration 0,Launch Configuration 1
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=scriptAppLauncher
+Name=Build
+Type=Script Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=all
+Configured from ProjectItem=evm,build.sh
+EnvironmentGroup=
+Executable=file:///home/garihosu/projects/evm/build.sh
+Execute on Remote Host=false
+Interpreter=bash
+Output Filtering Mode=2
+Remote Host=
+Run current file=false
+Working Directory=
+
+[Launch][Launch Configuration 1]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=Run
+Type=Native Application
+
+[Launch][Launch Configuration 1][Data]
+Arguments=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x02\x00\x00\x00\x06\x00e\x00v\x00m\x00\x00\x00\x10\x00b\x00u\x00i\x00l\x00d\x00.\x00s\x00h)
+Dependency Action=Build
+EnvironmentGroup=
+Executable=file:///home/garihosu/projects/evm/build/evm
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Kill Before Executing Again=4194304
+Project Target=
+Use External Terminal=false
+Working Directory=file:///home/garihosu/projects/evm/build
+isExecutable=true
+
+[Project]
+VersionControlSupport=kdevgit
+
+[SourceFormatter]
+UseDefault=false
+text/x-c++hdr=kdevcustomscript||GNU_indent_GNU
+text/x-c++src=kdevcustomscript||GNU_indent_GNU
+text/x-chdr=kdevastyle||ANSI
+text/x-csharp=kdevcustomscript||GNU_indent_GNU
+text/x-csrc=kdevastyle||ANSI
+text/x-java=kdevcustomscript||GNU_indent_GNU
+text/x-objcsrc=kdevcustomscript||GNU_indent_GNU
