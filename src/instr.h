@@ -3,7 +3,12 @@
 
 #include "evmdefs.h"
 
-void executeInstr(EVMInstance* e, uint8_t instr);
+#define NUM_INSTR 1
+
 void opHalt(EVMInstance* e);
+
+typedef void (*OpTable)(EVMInstance*);
+
+OpTable opTable[NUM_INSTR];
 
 #endif

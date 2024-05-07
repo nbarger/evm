@@ -1,9 +1,9 @@
 #include "instr.h"
 
-void executeInstr(EVMInstance* e, uint8_t instr)
+OpTable opTable[] =
 {
-    opTable[instr](e);
-}
+    &opHalt
+};
 
 void opHalt(EVMInstance* e)
 {

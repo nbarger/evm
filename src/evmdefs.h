@@ -21,12 +21,4 @@ typedef struct
 	int running;
 }EVMInstance;
 
-typedef void (*OpTable)(EVMInstance*);
-
-OpTable opTable[] =
-{
-    &opHalt
-};
-
-
 #endif
