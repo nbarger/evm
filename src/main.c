@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 	}
 
 	evmMonitor(mainInstance);
-	//evmDataDump(mainInstance);
+	evmDataDump(mainInstance);
 
 	printf("%x\n", mainInstance->dataStack[0]);
 
