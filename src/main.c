@@ -1,19 +1,21 @@
 
 #include "evm.h"
 #include "evmdefs.h"
+#include "loader.h"
 
-int main()
+int main(int argc, char** argv)
 {
-	uint8_t* ex = malloc(128);
-	ex[0] = 0x2;
-	ex[1] = 0x0;
-	ex[2] = 'h';
-	ex[3] = 0x1;
-	ex[4] = 0;
+	if (argc < 1)
+	{
+		fprintf(stderr, "Please pass a file name.");
+		return 1;
+	}
+	
+	uint8_t* code = getCode(argv[1]);
 
 	EVMInstance* mainInstance = evmNew();
 
-	evmLoadCode(mainInstance, 0, ex, 128);
+	evmLoadCode(mainInstance, 0, code, 128);
 
 	evmStart(mainInstance, 0);
 
@@ -24,11 +26,13 @@ int main()
 	}
 
 	evmMonitor(mainInstance);
-	evmDataDump(mainInstance);
+	//evmDataDump(mainInstance);
+
+	printf("%x\n", mainInstance->dataStack[0]);
 
 	evmEnd(mainInstance);
 
-	free(ex);
+	free(code);
 
 	return 0;
 }

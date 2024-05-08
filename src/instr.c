@@ -100,7 +100,7 @@ void opPushRegister(EVMInstance* e)
 void opPopRegister(EVMInstance* e)
 {
 	e->pc++;
-	e->registers[e->codeMem[e->pc]] = e->dataStack[e-dsp-1];
+	e->registers[e->codeMem[e->pc]] = e->dataStack[e->dsp-1];
 	e->dsp--;
 	e->pc++;
 }
@@ -124,8 +124,8 @@ void opNewSubroutine(EVMInstance* e)
 void opReturnSubroutine(EVMInstance* e)
 {
 	e->pc++;
-	e->registers[6] = e->returnStack[dsp-2];
-	e->registers[7] = e->returnStack[dsp-1];
+	e->registers[6] = e->returnStack[e->dsp-2];
+	e->registers[7] = e->returnStack[e->dsp-1];
 	e->rsp -= 2;
 }
 
@@ -134,6 +134,7 @@ void opIncrementRegister(EVMInstance* e)
 {
 	e->pc++;
 	e->registers[e->codeMem[e->pc]]++;
+	e->pc++;
 }
 
 // decrements a register
@@ -141,6 +142,7 @@ void opDecrementRegister(EVMInstance* e)
 {
 	e->pc++;
 	e->registers[e->codeMem[e->pc]]--;
+	e->pc++;
 }
 
 // adds two registers together

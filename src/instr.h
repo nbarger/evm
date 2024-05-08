@@ -3,33 +3,33 @@
 
 #include "evmdefs.h"
 
-#define NUM_INSTR 22
+#define NUM_INSTR 25
 
-void opHalt(EVMInstance* e);
-void opNop(EVMInstance* e);
-void opLoadImmediate(EVMInstance* e);
-void opTransferRegister(EVMInstance* e);
-void opLoadData(EVMInstance* e);
-void opStoreRegister(EVMInstance* e);
-void opStoreIndirect(EVMInstance* e);
-void opStoreIndirectOffset(EVMInstance* e);
-void opPushRegister(EVMInstance* e);
-void opPopRegister(EVMInstance* e);
-void opJump(EVMInstance* e);
-void opNewSubroutine(EVMInstance* e);
-void opReturnSubroutine(EVMInstance* e);
-void opIncrementRegister(EVMInstance* e);
-void opDecrementRegister(EVMInstance* e);
-void opAddRegisters(EVMInstance* e);
-void opSubtractRegisters(EVMInstance* e);
-void opMultiplyRegisters(EVMInstance* e);
-void opDivideRegisters(EVMInstance* e);
-void opAndRegisters(EVMInstance* e);
-void opOrRegisters(EVMInstance* e);
-void opXOrRegisters(EVMInstance* e);
-void opNotRegister(EVMInstance* e);
-void opLeftShiftRegister(EVMInstance* e);
-void opRightShiftRegister(EVMInstance* e);
+void opHalt(EVMInstance* e); // 0
+void opNop(EVMInstance* e); // 1
+void opLoadImmediate(EVMInstance* e); // 2
+void opTransferRegister(EVMInstance* e); // 3
+void opLoadData(EVMInstance* e); // 4
+void opStoreRegister(EVMInstance* e); // 5
+void opStoreIndirect(EVMInstance* e); // 6
+void opStoreIndirectOffset(EVMInstance* e); // 7
+void opPushRegister(EVMInstance* e); // 8
+void opPopRegister(EVMInstance* e); // 9
+void opJump(EVMInstance* e); // 10
+void opNewSubroutine(EVMInstance* e); // 11
+void opReturnSubroutine(EVMInstance* e); // 12
+void opIncrementRegister(EVMInstance* e); // 13
+void opDecrementRegister(EVMInstance* e); // 14
+void opAddRegisters(EVMInstance* e); // 15
+void opSubtractRegisters(EVMInstance* e); // 16
+void opMultiplyRegisters(EVMInstance* e); // 17
+void opDivideRegisters(EVMInstance* e); // 18
+void opAndRegisters(EVMInstance* e); // 19
+void opOrRegisters(EVMInstance* e); // 20
+void opXOrRegisters(EVMInstance* e); // 21
+void opNotRegister(EVMInstance* e); // 22
+void opLeftShiftRegister(EVMInstance* e); // 23
+void opRightShiftRegister(EVMInstance* e); // 24
 
 typedef void (*OpTable)(EVMInstance*);
 
