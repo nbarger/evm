@@ -41,6 +41,7 @@ void evmEnd(EVMInstance* e)
 void evmStart(EVMInstance* e, size_t start)
 {
 	e->pc = start;
+	e->running = 1;
 }
 
 void evmExecuteInstr(EVMInstance* e, uint8_t instr)
@@ -61,17 +62,33 @@ void evmMonitor(EVMInstance* e)
 	size_t i;
 
 	// pointer regs
-	printf("PC               DSP              RSP\n");
-	printf("%016d %016d %016d\n", (int)e->pc, (int)e->dsp, (int)e->rsp);
-	printf("Flags\n");
-	printf("%08x\n", e->flags);
-	printf("r1       r2       r3       r4\n");
+	printf("PC   DSP  RSP\n");
+	printf("%04d %04d %04d\n", (int)e->pc, (int)e->dsp, (int)e->rsp);
+	printf("Flags: %x\n", e->flags);
+	printf("r1 r2 r3 r4\n");
 	for (i=0; i<4; i++)
-		printf("%08x ", e->registers[i]);
-	printf("\nr5       r6       lo       hi\n");
+		printf("%02x ", e->registers[i]);
+	printf("\nr5 r6 lo hi\n");
 	for (i=4; i<8; i++)
-		printf("%08x ", e->registers[i]);
-	printf("Current instruction: %08x", e->instr);
+		printf("%02x ", e->registers[i]);
+	printf("\nCurrent instruction: %02x\n\n", e->instr);
+}
+
+void evmDataDump(EVMInstance* e)
+{
+	size_t i;
+	
+	// print code
+	printf("{\n");
+	for (i=0; i<DATA_STACK_MAX; i+=4)
+	{
+		printf("    %02x | %c |    %02x | %c |    ", e->dataStack[i], e->dataStack[i], 
+				e->dataStack[i+1], e->dataStack[i+1]);
+		printf("    %02x | %c |    %02x | %c |\n", e->dataStack[i+2], e->dataStack[i+2],
+				e->dataStack[i+3], e->dataStack[i+3]);
+	}
+	printf("\n}\n");
+
 }
 
 void evmLoadCode(EVMInstance* e, size_t start, uint8_t* code, size_t codeSize)
