@@ -1,0 +1,11 @@
+
+ldi 0,$1f	; $ indicates a hex number
+ldi lo,$00
+ldi hi,$00
+str
+
+ldi lo,label.lo
+ldi hi,label.hi
+label:
+jmp
+

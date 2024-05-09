@@ -1,3 +1,7 @@
 
-[] fix memory
+[*] fix memory
 
+[1/2] implement needed instructions
+
+[] test instructions
+	[] (REQ) implement assembler (in tools dir)

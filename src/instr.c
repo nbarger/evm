@@ -27,7 +27,13 @@ OpTable opTable[] =
 	&opXOrRegisters,
 	&opNotRegister,
 	&opLeftShiftRegister,
-	&opRightShiftRegister
+	&opRightShiftRegister,
+	&opCompare,
+	&opJumpIfEqual,
+	&opJumpIfNotEqual,
+	&opJumpIfZero,
+	&opJumpIfGreater,
+	&opJumpIfLess
 };
 
 // set the running flag to 0, halting the process
@@ -78,13 +84,25 @@ void opStoreRegister(EVMInstance* e)
 // store register at an address referenced at hilo with an indirect offset of r5 (so (hilo,r5))
 void opStoreIndirect(EVMInstance* e)
 {
-	//TODO
+	e->pc++;
+	e->dataDataStack[
+		B8TO16(e->dataStack[B8TO16(e->registers[6], e->registers[7])],
+				e->dataStack[B8TO16(e->registers[6],
+					e->registers[7])+1])+registers[5]] =
+			e->registers[e->codeMem[e->pc]];
+	e->pc++;
 }
 
 // store register at an address referenced at hilo with a direct offset of r5 (so (hilo),r5)
 void opStoreIndirectOffset(EVMInstance* e)
 {
-	//TODO
+	e->pc++;
+	e->dataDataStack[
+		B8TO16(e->dataStack[B8TO16(e->registers[6], e->registers[7])+e->registers[5]],
+				e->dataStack[B8TO16(e->registers[6],
+					e->registers[7])+1+e->registers[5]])] =
+			e->registers[e->codeMem[e->pc]];
+	e->pc++;
 }
 
 // push register "a" on stack
@@ -145,62 +163,135 @@ void opDecrementRegister(EVMInstance* e)
 	e->pc++;
 }
 
-// adds two registers together
+// adds two registers together and stores it in register a
 void opAddRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]+e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // subtracts register a by register b
 void opSubtractRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]-e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // multiplies register a by register b
 void opMultiplyRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]*e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
-// divides register a by register b
+// divides register a by register b, also storing the remainder in reg b
 void opDivideRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	if (e->registers[e->codeMem[e->pc+1]] == 0)
+	{
+		fprintf(stderr, "Cannot divide by zero; insert traceback i guess\n");
+		e->running = 0;
+		return;
+	}
+	e->registers[e->codeMem[e->pc]] = (uint8_t)
+		e->registers[e->codeMem[e->pc]]/e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // bitwise ands register a by register b
 void opAndRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]&e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // bitwise ors register a by register b
 void opOrRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]|e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // bitwise xors register a by register b
 void opXOrRegisters(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]^e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // nots register a
 void opNotRegister(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		~e->registers[e->codeMem[e->pc]];
+	e->pc += 1;
 }
 
 // leftshifts register a by register b
 void opLeftShiftRegister(EVMInstance* e)
 {
-
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]<<e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
 }
 
 // rightshifts register b by register b
 void opRightShiftRegister(EVMInstance* e)
+{
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->registers[e->codeMem[e->pc]]>>e->registers[e->codeMem[e->pc+1]];
+	e->pc += 2;
+}
+
+/*
+ * Flags:
+ *      RGE
+ * 00000000
+ */
+
+// compare a with b, setting any flags
+void opCompare(EVMInstance* e)
+{
+	e->pc++;
+	if (e->registers
+}
+
+// jump if the equal flag is set
+void opJumpIfEqual(EVMInstance* e)
+{
+
+}
+
+// jump if the equal flag is not set
+void opJumpIfNotEqual(EVMInstance* e)
+{
+
+}
+
+// jump if the greater flag is set
+void opJumpIfGreater(EVMInstance* e)
+{
+
+}
+
+// jump if the greater flag is not set
+void opJumpIfLess(EVMInstance* e)
 {
 
 }

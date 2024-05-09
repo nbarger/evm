@@ -3,7 +3,7 @@
 
 #include "evmdefs.h"
 
-#define NUM_INSTR 25
+#define NUM_INSTR 30
 
 void opHalt(EVMInstance* e); // 0
 void opNop(EVMInstance* e); // 1
@@ -15,21 +15,26 @@ void opStoreIndirect(EVMInstance* e); // 6
 void opStoreIndirectOffset(EVMInstance* e); // 7
 void opPushRegister(EVMInstance* e); // 8
 void opPopRegister(EVMInstance* e); // 9
-void opJump(EVMInstance* e); // 10
-void opNewSubroutine(EVMInstance* e); // 11
-void opReturnSubroutine(EVMInstance* e); // 12
-void opIncrementRegister(EVMInstance* e); // 13
-void opDecrementRegister(EVMInstance* e); // 14
-void opAddRegisters(EVMInstance* e); // 15
-void opSubtractRegisters(EVMInstance* e); // 16
-void opMultiplyRegisters(EVMInstance* e); // 17
-void opDivideRegisters(EVMInstance* e); // 18
-void opAndRegisters(EVMInstance* e); // 19
-void opOrRegisters(EVMInstance* e); // 20
-void opXOrRegisters(EVMInstance* e); // 21
-void opNotRegister(EVMInstance* e); // 22
-void opLeftShiftRegister(EVMInstance* e); // 23
-void opRightShiftRegister(EVMInstance* e); // 24
+void opJump(EVMInstance* e); // a
+void opNewSubroutine(EVMInstance* e); // b
+void opReturnSubroutine(EVMInstance* e); // c
+void opIncrementRegister(EVMInstance* e); // d
+void opDecrementRegister(EVMInstance* e); // e
+void opAddRegisters(EVMInstance* e); // f
+void opSubtractRegisters(EVMInstance* e); // 10
+void opMultiplyRegisters(EVMInstance* e); // 11
+void opDivideRegisters(EVMInstance* e); // 12
+void opAndRegisters(EVMInstance* e); // 13
+void opOrRegisters(EVMInstance* e); // 14
+void opXOrRegisters(EVMInstance* e); // 15
+void opNotRegister(EVMInstance* e); // 16
+void opLeftShiftRegister(EVMInstance* e); // 17
+void opRightShiftRegister(EVMInstance* e); // 18
+void opCompare(EVMInstance* e); // 19
+void opJumpIfEqual(EVMInstance* e); // 1a
+void opJumpIfNotEqual(EVMInstance* e); // 1b
+void opJumpIfGreater(EVMInstance* e); // 1c
+void opJumpIfLess(EVMInstance* e); // 1d
 
 typedef void (*OpTable)(EVMInstance*);
 
