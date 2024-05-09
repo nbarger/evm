@@ -31,7 +31,6 @@ OpTable opTable[] =
 	&opCompare,
 	&opJumpIfEqual,
 	&opJumpIfNotEqual,
-	&opJumpIfZero,
 	&opJumpIfGreater,
 	&opJumpIfLess
 };
