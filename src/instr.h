@@ -1,6 +1,9 @@
 #ifndef INSTR_H
 #define INSTR_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "evmdefs.h"
 
 #define NUM_INSTR 30

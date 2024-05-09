@@ -84,10 +84,10 @@ void opStoreRegister(EVMInstance* e)
 void opStoreIndirect(EVMInstance* e)
 {
 	e->pc++;
-	e->dataDataStack[
+	e->dataStack[
 		B8TO16(e->dataStack[B8TO16(e->registers[6], e->registers[7])],
 				e->dataStack[B8TO16(e->registers[6],
-					e->registers[7])+1])+registers[5]] =
+					e->registers[7])+1])+e->registers[5]] =
 			e->registers[e->codeMem[e->pc]];
 	e->pc++;
 }
@@ -96,7 +96,7 @@ void opStoreIndirect(EVMInstance* e)
 void opStoreIndirectOffset(EVMInstance* e)
 {
 	e->pc++;
-	e->dataDataStack[
+	e->dataStack[
 		B8TO16(e->dataStack[B8TO16(e->registers[6], e->registers[7])+e->registers[5]],
 				e->dataStack[B8TO16(e->registers[6],
 					e->registers[7])+1+e->registers[5]])] =
@@ -267,30 +267,29 @@ void opRightShiftRegister(EVMInstance* e)
 // compare a with b, setting any flags
 void opCompare(EVMInstance* e)
 {
-	e->pc++;
-	if (e->registers
+	// TODO
 }
 
 // jump if the equal flag is set
 void opJumpIfEqual(EVMInstance* e)
 {
-
+	// TODO
 }
 
 // jump if the equal flag is not set
 void opJumpIfNotEqual(EVMInstance* e)
 {
-
+	// TODO
 }
 
 // jump if the greater flag is set
 void opJumpIfGreater(EVMInstance* e)
 {
-
+	// TODO
 }
 
 // jump if the greater flag is not set
 void opJumpIfLess(EVMInstance* e)
 {
-
+	// TODO
 }
