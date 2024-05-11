@@ -10,7 +10,7 @@
 #include "evmdefs.h"
 
 #define REG_AMOUNT 8
-#define CODE_MAX 0x2000
+#define CODE_MAX 2048
 #define DATA_STACK_MAX 0x800
 #define RETURN_STACK_MAX 0x80
 

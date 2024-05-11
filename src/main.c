@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
 	EVMInstance* mainInstance = evmNew();
 
-	evmLoadCode(mainInstance, 0, code, 128);
+	evmLoadCode(mainInstance, 0, code, 1024);
 
 	evmStart(mainInstance, 0);
 
