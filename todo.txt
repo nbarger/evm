@@ -1,9 +1,9 @@
 
 [*] fix memory
 
-[1/2] implement needed instructions
+[*] implement needed instructions
 
 [] test instructions
 	[] (REQ) implement assembler (in tools dir)
 
-[] Fix jumping issue
+[*] Fix jumping issue

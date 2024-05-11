@@ -268,29 +268,42 @@ void opRightShiftRegister(EVMInstance* e)
 // compare a with b, setting any flags
 void opCompare(EVMInstance* e)
 {
-	// TODO
+	evm->pc++;
+        if (evm->registers[evm->codeMem[evm->pc]] == evm->registers[evm->codeMem[evm->pc+1]])
+                evm->flags |= 0b00000001;
+        if (evm->registers[evm->codeMem[evm->pc]] != evm->registers[evm->codeMem[evm->pc+1]])
+                evm->flags &= 0b11111110;
+        if (evm->registers[evm->codeMem[evm->pc]] > evm->registers[evm->codeMem[evm->pc+1]])
+                evm->flags |= 0b00000010;
+        if (evm->registers[evm->codeMem[evm->pc]] < evm->registers[evm->codeMem[evm->pc+1]])
+                evm->flags &= 0b11111101;
+        evm->pc += 2;
 }
 
 // jump if the equal flag is set
 void opJumpIfEqual(EVMInstance* e)
 {
-	// TODO
+	if (evm->flags & 0b00000001 == 0b00000001)
+		e->pc = B8TO16(e->registers[6], e->registers[7]);
 }
 
 // jump if the equal flag is not set
 void opJumpIfNotEqual(EVMInstance* e)
-{
-	// TODO
+{	
+	if (evm->flags & 0b00000001 != 0b00000001)
+		e->pc = B8TO16(e->registers[6], e->registers[7]);
 }
 
 // jump if the greater flag is set
 void opJumpIfGreater(EVMInstance* e)
 {
-	// TODO
+	if (evm->flags & 0b00000010 == 0b00000010)
+		e->pc = B8TO16(e->registers[6], e->registers[7]);
 }
 
 // jump if the greater flag is not set
 void opJumpIfLess(EVMInstance* e)
 {
-	// TODO
+	if (evm->flags & 0b00000010 == 0b00000010)
+		e->pc = B8TO16(e->registers[6], e->registers[7]);
 }
