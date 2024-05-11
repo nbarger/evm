@@ -30,7 +30,7 @@ def loadFile(p):
         a = f.read()
     return a
 
-def parseString(s):
+def lexString(s):
     toks = []
     for c in s:
         if c in LETTERS:
@@ -59,6 +59,35 @@ def parseString(s):
             toks.append((TOK_NEWLINE))
     return toks
 
+def makeSymbols(toks):
+    sym = []
+    currentSym = 0
+    counter = 0
+    numForm = 0 # 0 decimal number, 1 hex number, 2 binary number
+    for tok in toks:
+        if type(tok) == tuple:
+            if tok[0] == TOK_LETTER:
+                if counter == 0:
+                    sym.append(list())
+                sym[currentSym].append(tok)
+                counter += 1
+                
+            if tok[0] == TOK_NUMBER:
+                if counter == 0:
+                    sym.append(list())
+                sym[currentSym].append(tok)
+                counter += 1
+        else:
+            if tok == TOK_HEXIND:
+                numForm = 1
+            if tok == TOK_BININD:
+                numForm = 2
+            if tok == TOK_WHITESPACE:
+                counter = 0
+                if len(sym) > currentSym:
+                    currentSym += 1
+    return sym
+
 if len(sys.argv) < 2:
     print("No file given.")
     exit(1)
@@ -72,6 +101,10 @@ except:
     print("Could not open file or does not exist.")
     exit(1)
 
-tokens = parseString(s)
+tokens = lexString(s)
 
 print(tokens)
+
+syms = makeSymbols(tokens)
+
+print(syms)

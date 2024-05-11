@@ -78,7 +78,7 @@ void evmDataDump(EVMInstance* e)
 {
 	size_t i;
 	
-	// print code
+	// print data
 	printf("{\n");
 	for (i=0; i<DATA_STACK_MAX; i+=4)
 	{
@@ -88,7 +88,22 @@ void evmDataDump(EVMInstance* e)
 				e->dataStack[i+3], e->dataStack[i+3]);
 	}
 	printf("\n}\n");
+}
 
+void evmCodeDump(EVMInstance* e)
+{
+	size_t i;
+	
+	// print code
+	printf("{\n");
+	for (i=0; i<CODE_MAX; i+=4)
+	{
+		printf("    %02x | %c |    %02x | %c |    ", e->codeMem[i], e->codeMem[i], 
+				e->codeMem[i+1], e->codeMem[i+1]);
+		printf("    %02x | %c |    %02x | %c |\n", e->codeMem[i+2], e->codeMem[i+2],
+				e->codeMem[i+3], e->codeMem[i+3]);
+	}
+	printf("\n}\n");
 }
 
 void evmLoadCode(EVMInstance* e, size_t start, uint8_t* code, size_t codeSize)

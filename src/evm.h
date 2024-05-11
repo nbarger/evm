@@ -10,7 +10,7 @@
 #include "evmdefs.h"
 
 #define REG_AMOUNT 8
-#define CODE_MAX 0x800
+#define CODE_MAX 0x2000
 #define DATA_STACK_MAX 0x800
 #define RETURN_STACK_MAX 0x80
 
@@ -23,6 +23,8 @@ void evmLoadCode(EVMInstance* e, size_t start, uint8_t* code, size_t codeSize);
 
 void evmCycle(EVMInstance* e);
 void evmMonitor(EVMInstance* e);
+
 void evmDataDump(EVMInstance* e);
+void evmCodeDump(EVMInstance* e);
 
 #endif

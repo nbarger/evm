@@ -5,3 +5,5 @@
 
 [] test instructions
 	[] (REQ) implement assembler (in tools dir)
+
+[] Fix jumping issue

@@ -1,0 +1,31 @@
+main:
+ldi r0, 10
+psh strhi
+psh strlo
+psh r0
+ldi lo, print.lo
+ldi hi, print.hi
+nsb
+hlt
+
+;params:
+; len, lo, hi
+print:
+pop r3
+ldi r5, 0
+.loop:
+pop lo
+pop hi
+ldd r2
+psh hi
+psh lo
+ldi lo, 0
+ldi hi, 0
+str
+inc r5
+ldi hi, .loop.hi
+ldi lo, .loop.lo
+cmp r5, r3
+jne
+ret
+jmp

@@ -69,6 +69,7 @@ void opLoadData(EVMInstance* e)
 	e->pc++;
 	e->registers[e->codeMem[e->pc]] = 
 		e->dataStack[B8TO16(e->registers[6], e->registers[7])+e->registers[5]];
+	e->pc++;
 }
 
 // store register "a" at address hilo with offset r5
