@@ -1,0 +1,40 @@
+name "dbglib  " ; 8 byte name
+id 0 ; 1 byte ID
+author "Noah Barger     " ; 16 byte author
+version 0 ; 1 byte version
+
+define cprint
+define cgetstr
+
+define cput
+define cget
+
+PUTC = 0
+
+; (in order pushed) addr, size
+cprint:
+	pop r3
+	ldi 0,r4
+.loop
+	pop lo
+	pop hi
+	trs r4,r5
+	ldc r0
+	psh hi
+	psh lo
+	ldi 0,r5
+	str r0
+	inc r4
+	cmp r4,r3
+	ldi .loop.lo
+	ldi .loop.hi
+	jne .loop
+	ret
+	jmp
+
+cput:
+	pop r0
+	ldi r5,0
+	ldi lo,PUTC.lo
+	ldi hi,PUTC.hi
+	str r0
