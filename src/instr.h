@@ -6,7 +6,7 @@
 
 #include "evmdefs.h"
 
-#define NUM_INSTR 30
+#define NUM_INSTR 31
 
 void opHalt(EVMInstance* e); // 0
 void opNop(EVMInstance* e); // 1
@@ -38,6 +38,7 @@ void opJumpIfEqual(EVMInstance* e); // 1a
 void opJumpIfNotEqual(EVMInstance* e); // 1b
 void opJumpIfGreater(EVMInstance* e); // 1c
 void opJumpIfLess(EVMInstance* e); // 1d
+void opLoadCode(EVMInstance* e); // 1e
 
 typedef void (*OpTable)(EVMInstance*);
 

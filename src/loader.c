@@ -1,9 +1,7 @@
 #include "loader.h"
 
-uint8_t* getCode(char* path)
+size_t getCode(char* path, uint8_t* toWrite)
 {
-	uint8_t* code;
-
 	FILE* f = fopen(path, "rb");
 
 	if (f == NULL)
@@ -16,11 +14,9 @@ uint8_t* getCode(char* path)
 	size_t codeLen = ftell(f);
 	fseek(f, 0, SEEK_SET);
 
-	code = malloc(codeLen);
-
-	fread(code, sizeof(uint8_t), codeLen, f);
+	fread(toWrite, sizeof(uint8_t), codeLen, f);
 
 	fclose(f);
 
-	return code;
+	return codeLen;
 }

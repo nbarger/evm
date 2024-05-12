@@ -32,7 +32,8 @@ OpTable opTable[] =
 	&opJumpIfEqual,
 	&opJumpIfNotEqual,
 	&opJumpIfGreater,
-	&opJumpIfLess
+	&opJumpIfLess,
+	&opLoadCode
 };
 
 // set the running flag to 0, halting the process
@@ -51,7 +52,7 @@ void opNop(EVMInstance* e)
 void opLoadImmediate(EVMInstance* e)
 {
 	e->pc++;
-	e->registers[e->codeMem[e->pc]] = e->codeMem[e->pc+1];
+	e->registers[e->codeMem[e->pc+1]] = e->codeMem[e->pc];
 	e->pc += 2;
 }
 
@@ -59,7 +60,7 @@ void opLoadImmediate(EVMInstance* e)
 void opTransferRegister(EVMInstance* e)
 {
 	e->pc++;
-	e->registers[e->codeMem[e->pc]] = e->codeMem[e->pc+1];
+	e->registers[e->codeMem[e->pc+1]] = e->registers[e->codeMem[e->pc]];
 	e->pc += 2;
 }
 
@@ -69,6 +70,15 @@ void opLoadData(EVMInstance* e)
 	e->pc++;
 	e->registers[e->codeMem[e->pc]] = 
 		e->dataStack[B8TO16(e->registers[6], e->registers[7])+e->registers[5]];
+	e->pc++;
+}
+
+// load value from code memory just like above
+void opLoadCode(EVMInstance* e)
+{
+	e->pc++;
+	e->registers[e->codeMem[e->pc]] = 
+		e->codeMem[B8TO16(e->registers[6], e->registers[7])+e->registers[5]];
 	e->pc++;
 }
 
@@ -132,8 +142,8 @@ void opJump(EVMInstance* e)
 // create a new subroutine and jump to it
 void opNewSubroutine(EVMInstance* e)
 {
-	e->returnStack[e->rsp] = GETLO(e->pc);
-	e->returnStack[e->rsp+1] = GETHI(e->pc);
+	e->returnStack[e->rsp] = GETLO(e->pc+1);
+	e->returnStack[e->rsp+1] = GETHI(e->pc+1);
 	e->pc = B8TO16(e->registers[6], e->registers[7]);
 	e->rsp += 2;
 }
@@ -285,6 +295,8 @@ void opJumpIfEqual(EVMInstance* e)
 {
 	if ((e->flags & 0b00000001) == 0b00000001)
 		e->pc = B8TO16(e->registers[6], e->registers[7]);
+	else
+		e->pc++;
 }
 
 // jump if the equal flag is not set
@@ -292,6 +304,8 @@ void opJumpIfNotEqual(EVMInstance* e)
 {	
 	if ((e->flags & 0b00000001) != 0b00000001)
 		e->pc = B8TO16(e->registers[6], e->registers[7]);
+	else
+		e->pc++;
 }
 
 // jump if the greater flag is set
@@ -299,6 +313,8 @@ void opJumpIfGreater(EVMInstance* e)
 {
 	if ((e->flags & 0b00000010) == 0b00000010)
 		e->pc = B8TO16(e->registers[6], e->registers[7]);
+	else
+		e->pc++;
 }
 
 // jump if the greater flag is not set
@@ -306,4 +322,6 @@ void opJumpIfLess(EVMInstance* e)
 {
 	if ((e->flags & 0b00000010) == 0b00000010)
 		e->pc = B8TO16(e->registers[6], e->registers[7]);
+	else
+		e->pc++;
 }

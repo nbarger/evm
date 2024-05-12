@@ -14,9 +14,9 @@ EVMInstance* evmNew()
 
 	e->registers = calloc(REG_AMOUNT, sizeof(uint8_t));
 
-	e->codeMem = malloc(CODE_MAX);
-	e->dataStack = malloc(DATA_STACK_MAX);
-	e->returnStack = malloc(RETURN_STACK_MAX);
+	e->codeMem = malloc(CODE_MAX*sizeof(uint8_t));
+	e->dataStack = malloc(DATA_STACK_MAX*sizeof(uint8_t));
+	e->returnStack = malloc(RETURN_STACK_MAX*sizeof(uint8_t));
 
 	e->instr = 0;
 
@@ -55,6 +55,16 @@ void evmCycle(EVMInstance* e)
 	e->instr = e->codeMem[e->pc];
 	// execute
 	evmExecuteInstr(e, e->instr);
+	// check program counter and stack pointers
+	assert(!(e->pc>CODE_MAX));
+	assert(!(e->dsp>DATA_STACK_MAX));
+	assert(!(e->rsp>RETURN_STACK_MAX));
+	// print the value stored at PUTC, and reset it to zero (where then it wont be printed again
+	if (e->dataStack[EVM_PUTC] != 0)
+	{
+		printf("%c", e->dataStack[EVM_PUTC]);
+		e->dataStack[EVM_PUTC] = 0;
+	}
 }
 
 void evmMonitor(EVMInstance* e)

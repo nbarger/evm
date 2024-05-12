@@ -1,0 +1,31 @@
+main:
+ldi str.hi, 0
+psh 0
+ldi str.lo, 0
+psh 0
+ldi 14, 0
+psh 0
+ldi print.lo, lo
+ldi print.hi, hi
+nsb
+hlt
+
+str: db "Hello, weirdo!"
+
+print:
+pop 3
+ldi 0, 5
+.loop:
+pop lo
+pop hi
+ldd 0
+psh hi
+psh lo
+ldi 0, lo
+ldi 0, hi
+str 0
+inc 5
+cmp 3, 5
+jne .loop
+ret
+jmp

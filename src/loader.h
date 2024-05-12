@@ -5,6 +5,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-uint8_t* getCode(char* path);
+size_t getCode(char* path, uint8_t* toWrite);
 
 #endif

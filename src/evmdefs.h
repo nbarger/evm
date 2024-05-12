@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 #define B8TO16(l, h) ((h<<8)+l)
-#define GETLO(a) (a-((a>>8)<<8))
-#define GETHI(a) (a >> 8)
+#define GETLO(a) ((a)-(((a)>>8)<<8))
+#define GETHI(a) ((a) >> 8)
 
 typedef struct
 {

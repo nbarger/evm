@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <assert.h>
 
 #include "evmdefs.h"
 
@@ -13,6 +14,9 @@
 #define CODE_MAX 2048
 #define DATA_STACK_MAX 0x800
 #define RETURN_STACK_MAX 0x80
+
+#define EVM_PUTC 0
+#define EVM_GETC 1
 
 EVMInstance* evmNew();
 

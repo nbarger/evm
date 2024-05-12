@@ -7,3 +7,5 @@
 	[] (REQ) implement assembler (in tools dir)
 
 [*] Fix jumping issue
+
+[*] PRINTING using putc address
