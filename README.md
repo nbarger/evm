@@ -23,3 +23,7 @@ To clean:
 ```
 
 The build system is currently a work-in-progress, however I do intend on sticking with the shell file.
+
+## License
+
+EVM is unlicensed, which means it is public domain. You may use it in any way that you wish.
